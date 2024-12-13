@@ -2,11 +2,10 @@
   "name": "z-bench-backend",
   "version": "1.0.0",
   "description": "resource and bench management system",
-  "main": "app.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node app",
-    "server": "nodemon app",
+    "start": "nodemon server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -20,7 +19,9 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.3",
     "morgan": "^1.10.0",
-    "nodemon": "^3.1.7",
     "uuid": "^11.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }
