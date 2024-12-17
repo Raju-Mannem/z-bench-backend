@@ -2,7 +2,7 @@ import { Router } from "express";
 import jwt from "jsonwebtoken";
 import { adminAuth } from "../middleware/auth.js";
 import bcrypt from "bcrypt";
-import { Admin, BenchSales, Consultants } from "../models.js";
+import { Admin } from "../models.js";
 
 const adminRouter = Router();
 
@@ -54,14 +54,6 @@ adminRouter.post("/api/v1/login", async (req, res) => {
   }
 });
 
-adminRouter.get("/api/v1/dashboard", adminAuth, (req, res) => {
-  try {
-        res.send("welcome to dashboard");
-  } catch (err) {
-    console.log(err);
-    return res.status(500).send("Internal Server Error");
-  }
-});
 adminRouter.get("/api/v1/profile", adminAuth, (req, res) => {
   try{
     res.send("welcome to profile");
@@ -90,14 +82,15 @@ adminRouter.get("/api/v1/profile/password", adminAuth, (req, res) => {
     return res.status(500).send("Internal Server Error");
   }
 });
-adminRouter.get("/logout", adminAuth, (req, res) => {
-  try{
-    res.send("logout");
-  }
-  catch (err) {
-    console.log(err);
-    return res.status(500).send("Internal Server Error");
-  }
+adminRouter.get("api/v1/profile/delete",adminAuth,async(req,res)=>{
+    try{
+        const { _id } = req.admin;
+        const admin = await Admin.findByIdAndDelete(_id,(err,admin)=>{
+            res.send(admin);
+        });
+    }catch (err) {
+        console.log(err);
+        return res.status(500).send("Internal Server Error");
+    }
 });
-
 export default adminRouter;
